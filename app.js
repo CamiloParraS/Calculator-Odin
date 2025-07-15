@@ -20,7 +20,7 @@ function handleNumber(value) {
 function handleDecimal(value) {
   if (!currentInput.includes(".")) {
     if (currentInput === "0" || currentInput === "") {
-      currentInput = "0."; // Start with "0." for inputs like ".5"
+      currentInput = "0."; 
     } else {
       currentInput += value;
     }
@@ -123,5 +123,19 @@ buttons.forEach((button) => {
 
 // =============== Keyboard Support ===============
 document.addEventListener("keydown", (e) => {
-  // TO DO
+  e.preventDefault();
+  let button = document.querySelector(`button[value="${e.key}"]`);
+
+  if (e.key === "Enter") {
+    button = document.querySelector(`button[data-type="equal"]`);
+  } else if (e.key === "*") {
+    button = document.querySelector(`button[value="x"]`);
+  } else if (e.key === "Backspace") {
+    button = document.querySelector(`button[data-type="backspace"]`);
+  } else if (e.key === "Escape") {
+    button = document.querySelector(`button[data-type="reset"]`);
+  }
+  if (button) {
+    button.click();
+  }
 });
