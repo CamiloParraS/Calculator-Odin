@@ -3,7 +3,7 @@ console.log("HIIIII");
 // =============== DOM ELEMENTS ===============
 const display = document.getElementById("currentOperationDisplay");
 const lastDisplay = document.getElementById("lastOperationDisplay");
-const buttons = document.querySelectorAll("#buttons-grid button");
+const buttons = document.querySelectorAll("button");
 
 let currentInput = "0";
 let operator = null;
@@ -35,7 +35,9 @@ buttons.forEach((button) => {
         if (currentInput !== "" && currentInput !== "." && !operator) {
           firstValue = parseFloat(currentInput);
           operator = value;
-          currentInput = "";
+          lastDisplay.textContent = `${firstValue} ${value}`;
+          currentInput = "0";
+          display.textContent = "0";
         }
         break;
 
@@ -57,7 +59,6 @@ buttons.forEach((button) => {
             case "/":
               if (secondValue === 0) {
                 result = `Can't Divide By 0`;
-                secondValue = null;
               } else {
                 result = firstValue / secondValue;
               }
@@ -66,12 +67,13 @@ buttons.forEach((button) => {
               result = firstValue % secondValue;
               break;
           }
+          lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
           display.textContent = result;
 
           if (result === `Can't Divide By 0`) {
             currentInput = "0";
-            firstValue = 0;
-            operator = "null";
+            firstValue = null;
+            operator = null;
           } else {
             currentInput = result.toString();
             firstValue = null;
@@ -85,6 +87,7 @@ buttons.forEach((button) => {
         firstValue = null;
         operator = null;
         display.textContent = "0";
+        lastDisplay.textContent = "Hello World!";
         break;
       case "backspace":
         currentInput = currentInput.slice(0, -1);
