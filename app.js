@@ -38,6 +38,26 @@ function handleOperator(value) {
   }
 }
 
+function handleEquals() {
+  if (firstValue !== null && operator && currentInput !== "") {
+    const secondValue = parseFloat(currentInput);
+    const result = operate(operator, firstValue, secondValue);
+
+    lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
+    display.textContent = result;
+
+    if (result === "Can't Divide By 0") {
+      currentInput = "0";
+      firstValue = null;
+      operator = null;
+    } else {
+      currentInput = String(Math.floor(result.toFixed(4)));
+      firstValue = null;
+      operator = null;
+    }
+  }
+}
+
 function operate(operator, firstValue, secondValue) {
   let result;
   switch (operator) {
@@ -104,23 +124,7 @@ buttons.forEach((button) => {
         break;
 
       case "equal":
-        if (firstValue !== null && operator && currentInput !== "") {
-          const secondValue = parseFloat(currentInput);
-          const result = operate(operator, firstValue, secondValue);
-
-          lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
-          display.textContent = result;
-
-          if (result === "Can't Divide By 0") {
-            currentInput = "0";
-            firstValue = null;
-            operator = null;
-          } else {
-            currentInput = String(Math.floor(result.toFixed(4)));
-            firstValue = null;
-            operator = null;
-          }
-        }
+        handleEquals();
         break;
 
       case "reset":
