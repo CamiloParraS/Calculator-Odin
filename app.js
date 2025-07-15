@@ -20,7 +20,7 @@ function handleNumber(value) {
 function handleDecimal(value) {
   if (!currentInput.includes(".")) {
     if (currentInput === "0" || currentInput === "") {
-      currentInput = "0."; 
+      currentInput = "0.";
     } else {
       currentInput += value;
     }
@@ -42,28 +42,46 @@ function calculate(operator, firstValue, secondValue) {
   let result;
   switch (operator) {
     case "+":
-      result = firstValue + secondValue;
+      result = sum(firstValue, secondValue);
       break;
     case "-":
-      result = firstValue - secondValue;
+      result = substract(firstValue, secondValue);
       break;
     case "x":
-      result = firstValue * secondValue;
+      result = multiply(firstValue, secondValue);
       break;
     case "/":
-      if (secondValue === 0) {
-        return "Can't Divide By 0";
-      } else {
-        result = firstValue / secondValue;
-      }
+      result = divide(firstValue, secondValue);
       break;
     case "%":
-      result = firstValue % secondValue;
+      result = modulo(firstValue, secondValue);
       break;
     default:
       return "Invalid operator";
   }
   return result;
+}
+
+// FUNCTIONS FOR MATH OPERATIONS
+
+function sum(a, b) {
+  return a + b;
+}
+function substract(a, b) {
+  return a - b;
+}
+function multiply(a, b) {
+  return a * b;
+}
+function divide(a, b) {
+  if (b === 0) {
+    return "Can't Divide By 0";
+  } else {
+    return a / b;
+  }
+}
+function modulo(a, b) {
+  return a % b;
 }
 
 // =============== EVENT LISTENERS ===============
@@ -93,12 +111,12 @@ buttons.forEach((button) => {
           lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
           display.textContent = result;
 
-          if (result === "Can't Divide By 0" || result === "Result too large") {
+          if (result === "Can't Divide By 0") {
             currentInput = "0";
             firstValue = null;
             operator = null;
           } else {
-            currentInput = String(result);
+            currentInput = String(Math.floor(result * 1000) / 1000);
             firstValue = null;
             operator = null;
           }
