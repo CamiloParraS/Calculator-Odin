@@ -7,7 +7,7 @@ const buttons = document.querySelectorAll("#buttons-grid button");
 
 let currentInput = "0";
 let operator = null;
-let firstValue = 0;
+let firstValue = null;
 
 // =============== EVENT LISTENERS ===============
 buttons.forEach((button) => {
@@ -15,9 +15,6 @@ buttons.forEach((button) => {
     const type = button.dataset.type;
     const value = button.value;
     e.preventDefault();
-
-    console.log(buttons.length, buttons);
-    console.log("clicked", button.value, "type:", button.dataset.type);
 
     switch (type) {
       case "number":
@@ -31,6 +28,67 @@ buttons.forEach((button) => {
         } else {
           currentInput += value;
         }
+        display.textContent = currentInput;
+        break;
+
+      case "operator":
+        if (currentInput !== "" && currentInput !== "." && !operator) {
+          firstValue = parseFloat(currentInput);
+          operator = value;
+          currentInput = "";
+        }
+        break;
+
+      case "equal":
+        if (firstValue !== null && operator && currentInput !== "") {
+          const secondValue = parseFloat(currentInput);
+          let result;
+
+          switch (operator) {
+            case "+":
+              result = firstValue + secondValue;
+              break;
+            case "-":
+              result = firstValue - secondValue;
+              break;
+            case "x":
+              result = firstValue * secondValue;
+              break;
+            case "/":
+              if (secondValue === 0) {
+                result = `Can't Divide By 0`;
+                secondValue = null;
+              } else {
+                result = firstValue / secondValue;
+              }
+              break;
+            case "%":
+              result = firstValue % secondValue;
+              break;
+          }
+          display.textContent = result;
+
+          if (result === `Can't Divide By 0`) {
+            currentInput = "0";
+            firstValue = 0;
+            operator = "null";
+          } else {
+            currentInput = result.toString();
+            firstValue = null;
+            operator = null;
+          }
+        }
+        break;
+
+      case "reset":
+        currentInput = "0";
+        firstValue = null;
+        operator = null;
+        display.textContent = "0";
+        break;
+      case "backspace":
+        currentInput = currentInput.slice(0, -1);
+        if (currentInput === "") currentInput = "0";
         display.textContent = currentInput;
         break;
     }
