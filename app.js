@@ -38,7 +38,7 @@ function handleOperator(value) {
   }
 }
 
-function calculate(operator, firstValue, secondValue) {
+function operate(operator, firstValue, secondValue) {
   let result;
   switch (operator) {
     case "+":
@@ -106,7 +106,7 @@ buttons.forEach((button) => {
       case "equal":
         if (firstValue !== null && operator && currentInput !== "") {
           const secondValue = parseFloat(currentInput);
-          const result = calculate(operator, firstValue, secondValue);
+          const result = operate(operator, firstValue, secondValue);
 
           lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
           display.textContent = result;
@@ -116,7 +116,7 @@ buttons.forEach((button) => {
             firstValue = null;
             operator = null;
           } else {
-            currentInput = String(Math.floor(result * 1000) / 1000);
+            currentInput = String(Math.floor(result * 100000) / 100000);
             firstValue = null;
             operator = null;
           }
