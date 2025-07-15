@@ -1,7 +1,7 @@
 body {
   margin: 5% auto;
-  max-width: 73%;
-  font-family: "Nunito", sans-serif;
+  width: 40rem;
+  font-family: "Ubuntu Mono", monospace;
   font-size: 16px;
   line-height: 1.8;
   color: #444;
@@ -78,15 +78,16 @@ a:hover {
 #buttons-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 0.75rem;
+  grid-gap: 0.5rem;
 }
 
 .special {
   grid-column: span 2;
+  padding: 1rem 0;
 }
 
 button {
-    backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   padding: 1rem 0;
   border-radius: 1rem;
   cursor: pointer;
@@ -100,6 +101,7 @@ button {
 button:hover {
   transform: scale(1.05);
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  filter: brightness(90%);
 }
 
 button:active {
@@ -119,5 +121,10 @@ button:active {
 .allclear,
 .clear {
   background-color: #a5a5a5;
-  color: #000;
+  color: #333;
+}
+
+.operators:hover,
+.equal:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
