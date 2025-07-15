@@ -9,6 +9,63 @@ let currentInput = "0";
 let operator = null;
 let firstValue = null;
 
+// =============== FUNCTIONS ===============
+
+function handleNumber(value) {
+  if (currentInput === "0") currentInput = value;
+  else currentInput += value;
+  display.textContent = currentInput;
+}
+
+function handleDecimal(value) {
+  if (!currentInput.includes(".")) {
+    if (currentInput === "0" || currentInput === "") {
+      currentInput = "0."; // Start with "0." for inputs like ".5"
+    } else {
+      currentInput += value;
+    }
+    display.textContent = currentInput;
+  }
+}
+
+function handleOperator(value) {
+  if (currentInput !== "" && !operator) {
+    firstValue = parseFloat(currentInput);
+    operator = value;
+    lastDisplay.textContent = `${firstValue} ${value}`;
+    currentInput = "0";
+    display.textContent = "0";
+  }
+}
+
+function calculate(operator, firstValue, secondValue) {
+  let result;
+  switch (operator) {
+    case "+":
+      result = firstValue + secondValue;
+      break;
+    case "-":
+      result = firstValue - secondValue;
+      break;
+    case "x":
+      result = firstValue * secondValue;
+      break;
+    case "/":
+      if (secondValue === 0) {
+        return "Can't Divide By 0";
+      } else {
+        result = firstValue / secondValue;
+      }
+      break;
+    case "%":
+      result = firstValue % secondValue;
+      break;
+    default:
+      return "Invalid operator";
+  }
+  return result;
+}
+
 // =============== EVENT LISTENERS ===============
 buttons.forEach((button) => {
   button.addEventListener("click", (e) => {
@@ -18,64 +75,30 @@ buttons.forEach((button) => {
 
     switch (type) {
       case "number":
+        handleNumber(value);
+        break;
       case "decimal":
-        if (type === "decimal" && currentInput.includes(".")) {
-          break;
-        }
-
-        if (currentInput === "0" && type !== "decimal") {
-          currentInput = value;
-        } else {
-          currentInput += value;
-        }
-        display.textContent = currentInput;
+        handleDecimal(value);
         break;
 
       case "operator":
-        if (currentInput !== "" && currentInput !== "." && !operator) {
-          firstValue = parseFloat(currentInput);
-          operator = value;
-          lastDisplay.textContent = `${firstValue} ${value}`;
-          currentInput = "0";
-          display.textContent = "0";
-        }
+        handleOperator(value);
         break;
 
       case "equal":
         if (firstValue !== null && operator && currentInput !== "") {
           const secondValue = parseFloat(currentInput);
-          let result;
+          const result = calculate(operator, firstValue, secondValue);
 
-          switch (operator) {
-            case "+":
-              result = firstValue + secondValue;
-              break;
-            case "-":
-              result = firstValue - secondValue;
-              break;
-            case "x":
-              result = firstValue * secondValue;
-              break;
-            case "/":
-              if (secondValue === 0) {
-                result = `Can't Divide By 0`;
-              } else {
-                result = firstValue / secondValue;
-              }
-              break;
-            case "%":
-              result = firstValue % secondValue;
-              break;
-          }
           lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
           display.textContent = result;
 
-          if (result === `Can't Divide By 0`) {
+          if (result === "Can't Divide By 0" || result === "Result too large") {
             currentInput = "0";
             firstValue = null;
             operator = null;
           } else {
-            currentInput = result.toString();
+            currentInput = String(result);
             firstValue = null;
             operator = null;
           }
@@ -96,4 +119,9 @@ buttons.forEach((button) => {
         break;
     }
   });
+});
+
+// =============== Keyboard Support ===============
+document.addEventListener("keydown", (e) => {
+  // TO DO
 });
