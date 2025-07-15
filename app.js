@@ -116,7 +116,7 @@ buttons.forEach((button) => {
             firstValue = null;
             operator = null;
           } else {
-            currentInput = String(Math.floor(result * 100000) / 100000);
+            currentInput = String(Math.floor(result.toFixed(4)));
             firstValue = null;
             operator = null;
           }
