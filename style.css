@@ -106,6 +106,7 @@ button:hover {
 
 button:active {
   transform: scale(0.95);
+  filter: brightness(120%)
 }
 
 .digits,
