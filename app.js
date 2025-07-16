@@ -51,7 +51,7 @@ function handleEquals() {
       firstValue = null;
       operator = null;
     } else {
-      currentInput = String(Math.floor(result.toFixed(4)));
+      currentInput = String(result);
       firstValue = null;
       operator = null;
     }
@@ -77,7 +77,8 @@ function operate(operator, firstValue, secondValue) {
       result = modulo(firstValue, secondValue);
       break;
     default:
-      return "Invalid operator";
+      result =
+       "Invalid operator";
   }
   return result;
 }
