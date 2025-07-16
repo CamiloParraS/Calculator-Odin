@@ -91,7 +91,7 @@ function handleEquals() {
 
     resetDisplay = true;
 
-    if (result === leFunnyTotallyNotLongMessageThatEveryoneLovess) {
+    if (result === leFunnyTotallyNotLongMessageThatEveryoneLoves) {
       currentInput = "0";
       firstValue = null;
       operator = null;
@@ -146,7 +146,7 @@ function divide(a, b) {
   }
 }
 function percentage(a, b) {
-  return divide(multiply(a, 100), b);
+  return multiply(a, divide(b, 100));
 }
 
 // =============== EVENT LISTENERS ===============
