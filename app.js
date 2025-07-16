@@ -9,6 +9,7 @@ let currentInput = "0";
 let operator = null;
 let firstValue = null;
 let resetDisplay = false;
+let lastPressedOperator = false;
 
 // =============== FUNCTIONS ===============
 
@@ -47,6 +48,12 @@ function handleDecimal(value) {
 
 function handleOperator(value) {
   resetDisplay = false;
+  if (lastPressedOperator) {
+    operator = value; // Just change the operator
+    lastDisplay.textContent = `${firstValue ?? currentInput} ${value}`;
+    return;
+  }
+  lastPressedOperator = true;
   if (currentInput !== "" && !operator) {
     firstValue = parseFloat(currentInput);
     lastDisplay.textContent = `${firstValue} ${value}`;
