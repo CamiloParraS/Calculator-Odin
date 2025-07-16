@@ -86,7 +86,7 @@ function handleEquals() {
         ? result.toString()
         : result.toFixed(2);
     } else {
-      display.textContent = result; 
+      display.textContent = result;
     }
 
     resetDisplay = true;
@@ -119,7 +119,7 @@ function operate(operator, firstValue, secondValue) {
       result = divide(firstValue, secondValue);
       break;
     case "%":
-      result = modulo(firstValue, secondValue);
+      result = percentage(firstValue, secondValue);
       break;
     default:
       result = "Invalid operator";
@@ -145,8 +145,8 @@ function divide(a, b) {
     return a / b;
   }
 }
-function modulo(a, b) {
-  return a % b;
+function percentage(a, b) {
+  return divide(multiply(a, 100), b);
 }
 
 // =============== EVENT LISTENERS ===============
