@@ -14,6 +14,7 @@ let lastPressedOperator = false;
 // =============== FUNCTIONS ===============
 
 function handleNumber(value) {
+  lastPressedOperator = false;
   if (resetDisplay) {
     currentInput = value;
     firstValue = null;
@@ -29,6 +30,7 @@ function handleNumber(value) {
 }
 
 function handleDecimal(value) {
+  lastPressedOperator = false;
   if (resetDisplay) {
     currentInput = "0.";
     firstValue = null;
@@ -59,6 +61,7 @@ function handleOperator(value) {
     lastDisplay.textContent = `${firstValue} ${value}`;
     display.textContent = "0";
   } else if (currentInput !== "" && operator) {
+    lastPressedOperator = false;
     secondValue = parseFloat(currentInput);
     const internalOperation = operate(operator, firstValue, secondValue);
     firstValue = typeof internalOperation === "number" ? internalOperation : 0;
@@ -75,8 +78,13 @@ function handleEquals() {
     const result = operate(operator, firstValue, secondValue);
 
     lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
-    display.textContent =
-      typeof result === "number" ? result.toFixed(2) : result;
+    if (typeof result === "number") {
+      display.textContent = Number.isInteger(result)
+        ? result.toString()
+        : result.toFixed(2);
+    } else {
+      display.textContent = result; // For error messages like division by zero
+    }
 
     resetDisplay = true;
 
