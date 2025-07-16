@@ -73,7 +73,10 @@ function handleEquals() {
 
     resetDisplay = true;
 
-    if (result === "Can't Divide By 0") {
+    if (
+      result ===
+      "Imagine that you have zero cookies and you split them evenly among zero friends. How many cookies does each person get? See? It doesn’t make sense. And Cookie Monster is sad that there are no cookies, and you are sad that you have no friends."
+    ) {
       currentInput = "0";
       firstValue = null;
       operator = null;
@@ -122,7 +125,7 @@ function multiply(a, b) {
 }
 function divide(a, b) {
   if (b === 0) {
-    return "Can't Divide By 0";
+    return "Imagine that you have zero cookies and you split them evenly among zero friends. How many cookies does each person get? See? It doesn’t make sense. And Cookie Monster is sad that there are no cookies, and you are sad that you have no friends.";
   } else {
     return a / b;
   }
