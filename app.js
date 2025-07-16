@@ -8,16 +8,33 @@ const buttons = document.querySelectorAll("button");
 let currentInput = "0";
 let operator = null;
 let firstValue = null;
+let resetDisplay = false;
 
 // =============== FUNCTIONS ===============
 
 function handleNumber(value) {
+  if (resetDisplay) {
+    currentInput = value;
+    firstValue = null;
+    operator = null;
+    resetDisplay = false;
+    lastDisplay.textContent = "HII";
+    display.textContent = currentInput;
+    return;
+  }
   if (currentInput === "0") currentInput = value;
   else currentInput += value;
   display.textContent = currentInput;
 }
 
 function handleDecimal(value) {
+  if (resetDisplay) {
+    currentInput = "0.";
+    firstValue = null;
+    operator = null;
+    lastDisplay.textContent = "HII";
+    resetDisplay = false;
+  }
   if (!currentInput.includes(".")) {
     if (currentInput === "0" || currentInput === "") {
       currentInput = "0.";
@@ -29,6 +46,7 @@ function handleDecimal(value) {
 }
 
 function handleOperator(value) {
+  resetDisplay = false;
   if (currentInput !== "" && !operator) {
     firstValue = parseFloat(currentInput);
     lastDisplay.textContent = `${firstValue} ${value}`;
@@ -52,6 +70,8 @@ function handleEquals() {
     lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
     display.textContent =
       typeof result === "number" ? result.toFixed(2) : result;
+
+    resetDisplay = true;
 
     if (result === "Can't Divide By 0") {
       currentInput = "0";
@@ -140,6 +160,7 @@ buttons.forEach((button) => {
         operator = null;
         display.textContent = "0";
         lastDisplay.textContent = "Hello World!";
+        resetDisplay = false;
         break;
       case "backspace":
         currentInput = currentInput.slice(0, -1);
