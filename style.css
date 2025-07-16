@@ -53,7 +53,7 @@ a:hover {
   margin: 5% auto;
   padding: 1rem;
   background-color: rgba(0, 0, 0, 0.68);
-  border: 0.3rem solid #000;
+  outline: 0.3rem solid #000;
   border-radius: 1.5rem;
   backdrop-filter: blur(1px);
   box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
