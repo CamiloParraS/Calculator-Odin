@@ -5,6 +5,9 @@ const display = document.getElementById("currentOperationDisplay");
 const lastDisplay = document.getElementById("lastOperationDisplay");
 const buttons = document.querySelectorAll("button");
 
+const leFunnyTotallyNotLongMessageThatEveryoneLoves =
+  "Imagine that you have zero cookies and you split them evenly among zero friends. How many cookies does each person get? See? It doesn’t make sense. And Cookie Monster is sad that there are no cookies, and you are sad that you have no friends.";
+
 let currentInput = "0";
 let operator = null;
 let firstValue = null;
@@ -51,7 +54,7 @@ function handleDecimal(value) {
 function handleOperator(value) {
   resetDisplay = false;
   if (lastPressedOperator) {
-    operator = value; // Just change the operator
+    operator = value;
     lastDisplay.textContent = `${firstValue ?? currentInput} ${value}`;
     return;
   }
@@ -83,15 +86,12 @@ function handleEquals() {
         ? result.toString()
         : result.toFixed(2);
     } else {
-      display.textContent = result; // For error messages like division by zero
+      display.textContent = result; 
     }
 
     resetDisplay = true;
 
-    if (
-      result ===
-      "Imagine that you have zero cookies and you split them evenly among zero friends. How many cookies does each person get? See? It doesn’t make sense. And Cookie Monster is sad that there are no cookies, and you are sad that you have no friends."
-    ) {
+    if (result === leFunnyTotallyNotLongMessageThatEveryoneLovess) {
       currentInput = "0";
       firstValue = null;
       operator = null;
@@ -140,7 +140,7 @@ function multiply(a, b) {
 }
 function divide(a, b) {
   if (b === 0) {
-    return "Imagine that you have zero cookies and you split them evenly among zero friends. How many cookies does each person get? See? It doesn’t make sense. And Cookie Monster is sad that there are no cookies, and you are sad that you have no friends.";
+    return leFunnyTotallyNotLongMessageThatEveryoneLoves;
   } else {
     return a / b;
   }
