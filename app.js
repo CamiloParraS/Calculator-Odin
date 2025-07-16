@@ -31,11 +31,17 @@ function handleDecimal(value) {
 function handleOperator(value) {
   if (currentInput !== "" && !operator) {
     firstValue = parseFloat(currentInput);
-    operator = value;
     lastDisplay.textContent = `${firstValue} ${value}`;
-    currentInput = "0";
     display.textContent = "0";
+  } else if (currentInput !== "" && operator) {
+    secondValue = parseFloat(currentInput);
+    const internalOperation = operate(operator, firstValue, secondValue);
+    firstValue = typeof internalOperation === "number" ? internalOperation : 0;
+    lastDisplay.textContent = `${firstValue} ${value}`;
+    display.textContent = firstValue.toString();
   }
+  operator = value;
+  currentInput = "0";
 }
 
 function handleEquals() {
@@ -44,7 +50,8 @@ function handleEquals() {
     const result = operate(operator, firstValue, secondValue);
 
     lastDisplay.textContent = `${firstValue} ${operator} ${secondValue}`;
-    display.textContent = result;
+    display.textContent =
+      typeof result === "number" ? result.toFixed(2) : result;
 
     if (result === "Can't Divide By 0") {
       currentInput = "0";
@@ -77,8 +84,7 @@ function operate(operator, firstValue, secondValue) {
       result = modulo(firstValue, secondValue);
       break;
     default:
-      result =
-       "Invalid operator";
+      result = "Invalid operator";
   }
   return result;
 }
