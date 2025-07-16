@@ -95,7 +95,7 @@ function operate(operator, firstValue, secondValue) {
       result = sum(firstValue, secondValue);
       break;
     case "-":
-      result = substract(firstValue, secondValue);
+      result = subtract(firstValue, secondValue);
       break;
     case "x":
       result = multiply(firstValue, secondValue);
@@ -117,7 +117,7 @@ function operate(operator, firstValue, secondValue) {
 function sum(a, b) {
   return a + b;
 }
-function substract(a, b) {
+function subtract(a, b) {
   return a - b;
 }
 function multiply(a, b) {
